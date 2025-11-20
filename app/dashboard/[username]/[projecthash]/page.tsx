@@ -2896,11 +2896,11 @@ public class ${(project?.name || 'Auto').replace(/[^a-zA-Z0-9]/g, '')}Pedro exte
         currentX += distance
         pathPoses.push(`new Pose(${currentX}, ${currentY}, Math.toRadians(${currentHeading}))`)
       } else if (data.type === 'turnLeft') {
-        const degrees = data.degrees || 90
+        const degrees = data.angle || 90
         currentHeading -= degrees
         pathPoses.push(`new Pose(${currentX}, ${currentY}, Math.toRadians(${currentHeading}))`)
       } else if (data.type === 'turnRight') {
-        const degrees = data.degrees || 90
+        const degrees = data.angle || 90
         currentHeading += degrees
         pathPoses.push(`new Pose(${currentX}, ${currentY}, Math.toRadians(${currentHeading}))`)
       }
@@ -3189,7 +3189,7 @@ public class ${(project?.name || 'Auto').replace(/[^a-zA-Z0-9]/g, '')}Simple ext
           code += `            ${motor.varName}.setPower(0);\n`
         })
       } else if (data.type === 'turnLeft' || data.type === 'turnRight') {
-        const degrees = data.degrees || 90
+        const degrees = data.angle || 90
         const time = (degrees / 90) * 800 // Approximate time for 90 degree turn
         const direction = data.type === 'turnLeft' ? 'left' : 'right'
         const powerMultiplier = data.type === 'turnLeft' ? -1 : 1
@@ -3415,12 +3415,12 @@ public class ${(project?.name || 'Auto').replace(/[^a-zA-Z0-9]/g, '')}Encoder ex
         code += `\n            // Strafe right ${distance} inches\n`
         code += `            encoderDrive(DRIVE_SPEED, ${distance}, ${-distance}, ${-distance}, ${distance}, 5.0);\n`
       } else if (data.type === 'turnLeft') {
-        const degrees = data.degrees || 90
+        const degrees = data.angle || 90
         const turnInches = (degrees / 360) * (12 * Math.PI) // Assuming ~12" wheelbase
         code += `\n            // Turn left ${degrees} degrees\n`
         code += `            encoderDrive(TURN_SPEED, ${-turnInches}, ${turnInches}, ${-turnInches}, ${turnInches}, 5.0);\n`
       } else if (data.type === 'turnRight') {
-        const degrees = data.degrees || 90
+        const degrees = data.angle || 90
         const turnInches = (degrees / 360) * (12 * Math.PI)
         code += `\n            // Turn right ${degrees} degrees\n`
         code += `            encoderDrive(TURN_SPEED, ${turnInches}, ${-turnInches}, ${turnInches}, ${-turnInches}, 5.0);\n`
